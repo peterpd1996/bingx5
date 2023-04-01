@@ -1,0 +1,1033 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+  <title>Two ways to load only the CSS you need - LogRocket Blog</title>
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image:width" content="730" />
+  <meta property="og:image:height" content="487" />
+  <meta property="og:image:type" content="image/png" />
+  <meta name="author" content="Kingsley Ubah" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:label1" content="Written by" />
+  <meta name="twitter:data1" content="Kingsley Ubah" />
+  <meta name="twitter:label2" content="Est. reading time" />
+  <meta name="twitter:data2" content="7 minutes" />
+  <style type="text/css">
+    img.wp-smiley,
+    img.emoji {
+      display: inline !important;
+      border: none !important;
+      box-shadow: none !important;
+      height: 1em !important;
+      width: 1em !important;
+      margin: 0 0.07em !important;
+      vertical-align: -0.1em !important;
+      background: none !important;
+      padding: 0 !important;
+    }
+  </style>
+  <link rel='stylesheet' id='wp-block-library-css' href='https://blog.logrocket.com/wp-includes/css/dist/block-library/style.min.css?ver=6.2' type='text/css' media='all' />
+  <style id='wp-block-library-inline-css' type='text/css'>
+    .has-text-align-justify{text-align:justify;}
+  </style>
+  <script>
+    function geoipCountry() {
+      return new Promise((resolve, reject) => {
+        window.geoip2.country(resolve, reject);
+      });
+    }
+  </script>
+  <script>
+    // Setup as much as we can early on, before we enter the async portion
+    window.lr_analytics.init({
+      analyticsProxy: {
+        enabled: true,
+      },
+      segment: {
+        enabled: true,
+        writeKey: 'hn3yvJCms37nkkjrwDQ08PuKJKydGtAZ',
+        load: true,
+      },
+      redditPixel: {
+        enabled: true,
+        accountId: 't2_3xdvtyx2',
+      },
+      vwo: {
+        enabled: true,
+        accountId: 338524
+      },
+      utmMediumHash: {
+        enabled: true,
+      }
+    });
+
+    // Async portion of the script
+    // There is no guarantee on when this function will finish executing.
+    // Once we hit the first `await` execution will be suspende
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" media="none" onload="if(media!='all')media='all'">
+  <script src="https://cdn.lr-in-prod.com/LogRocket.min.js" crossorigin="anonymous"></script>
+  <script>
+    if (window.analytics) {
+      const oldTrack = window.analytics.track.bind(window.analytics);
+      window.analytics.track = (...args) => {
+        LogRocket.track(...args);
+        oldTrack(...args);
+      };
+    }</script>
+  <style>img#wpstats{display:none}</style>
+  <style type="text/css">
+    /* If html does not have either class, do not show lazy loaded images. */
+    html:not( .jetpack-lazy-images-js-enabled ):not( .js ) .jetpack-lazy-image {
+      display: none;
+    }
+  </style>
+  <link rel="icon" href="https://blog.logrocket.com/wp-content/uploads/2019/06/cropped-cropped-favicon-196x196-192x192.png" sizes="192x192" />
+<body class="post-template-default single single-post postid-96481 single-format-standard">
+<style>
+</style>
+<header class="navbar-light bg-white fixed-top mediumnavigation">
+  <div class="container">
+    <div class="nav-left">
+
+      <a class="blog-logo" href='https://logrocket.com' rel='home'><img src='https://blog.logrocket.com/wp-content/uploads/2022/09/logrocket-logo-frontend-analytics.png' alt='LogRocket Blog'></a>
+      <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-right searcharea">
+      </div>
+
+      <div class="navarea">
+        <nav class="navbar navbar-toggleable-sm">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#bs4navbar" aria-controls="bs4navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="bs4navbar" class="collapse navbar-collapse"><ul id="menu-primary" class="navbar-nav col-md-12 justify-content-center"><li id="menu-item-6" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-6 nav-item dropdown"><a href="/" class="nav-link dropdown-toggle">Blog</a>
+            <div class="dropdown-menu">
+              <a href="/" class="dropdown-item">Dev</a><a href="https://blog.logrocket.com/product-management" class="dropdown-item">Product Management</a><a href="https://blog.logrocket.com/ux-design/" class="dropdown-item">UX Design</a></div>
+            <li id="menu-item-32492" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-32492 nav-item"><a href="https://podrocket.logrocket.com" class="nav-link">Podcast</a><li id="menu-item-72923" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-72923 nav-item"><a href="https://blog.logrocket.com/tech-meetups/" class="nav-link">Meetups</a></ul></div> </nav>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="menu-container">
+        <div id="right-hand-nav" class="menu-right-hand-menu-container"><ul id="menu-right-hand-menu" class=""><li id="menu-item-877" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-877"><a href="https://app.logrocket.com">Sign In</a></li>
+          <li id="menu-item-878" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-878"><a href="https://logrocket.com/signup/">Start monitoring for free</a></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="site-content">
+  <div class="container container-first-lr">
+    <div class="row">
+      <div class=" col-md-2 ">
+        <div class="share">
+          <div class="sidebarapplause">
+          </div>
+          <p class="sharecolour">
+            Share </p>
+          <ul class="shareitnow"><li>
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Two%20ways%20to%20load%20only%20the%20CSS%20you%20need&amp;url=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li><li>
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li><li>
+            <a target="_blank" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F">
+              <i class="fa fa-google"></i>
+            </a>
+          </li><li>
+            <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F&amp;media=https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png&amp;description=Two%20ways%20to%20load%20only%20the%20CSS%20you%20need">
+              <i class="fa fa-pinterest"></i>
+            </a>
+          </li><li>
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F&amp;title=Two%20ways%20to%20load%20only%20the%20CSS%20you%20need">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </li></ul>
+          <div class="sep"></div>
+          <div class="hidden-xs-down">
+            <p>
+              Reply </p>
+            <ul>
+              <li>
+                <a class="smoothscroll" href="#comments">0<br />
+                  <svg class="svgIcon-use" width="29" height="29" viewBox="0 0 29 29"><path d="M21.27 20.058c1.89-1.826 2.754-4.17 2.754-6.674C24.024 8.21 19.67 4 14.1 4 8.53 4 4 8.21 4 13.384c0 5.175 4.53 9.385 10.1 9.385 1.007 0 2-.14 2.95-.41.285.25.592.49.918.7 1.306.87 2.716 1.31 4.19 1.31.276-.01.494-.14.6-.36a.625.625 0 0 0-.052-.65c-.61-.84-1.042-1.71-1.282-2.58a5.417 5.417 0 0 1-.154-.75zm-3.85 1.324l-.083-.28-.388.12a9.72 9.72 0 0 1-2.85.424c-4.96 0-8.99-3.706-8.99-8.262 0-4.556 4.03-8.263 8.99-8.263 4.95 0 8.77 3.71 8.77 8.27 0 2.25-.75 4.35-2.5 5.92l-.24.21v.32c0 .07 0 .19.02.37.03.29.1.6.19.92.19.7.49 1.4.89 2.08-.93-.14-1.83-.49-2.67-1.06-.34-.22-.88-.48-1.16-.74z"></path></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 flex-first flex-md-unordered post-96481 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized tag-css" id="post-96481">
+        <div class="mainheading">
+
+          <div class="row post-top-meta hidden-md-down">
+            <div class="col-md-2 col-xs-12">
+              <a href="https://blog.logrocket.com/author/kingsleyubah/">
+                <img alt src="https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1" class="avatar avatar-72 photo jetpack-lazy-image" height="72" width="72" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" alt='' src='https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1' class='avatar avatar-72 photo' height='72' width='72'  /></noscript> </a>
+            </div>
+            <div class="col-md-10 col-xs-12">
+              <a class="text-capitalize link-dark" href="https://blog.logrocket.com/author/kingsleyubah/">
+                Kingsley Ubah <span class="btn follow">Follow</span></a>
+              <span class="author-description d-block">21. Web Developer. Technical Writer. African in Tech.</span>
+            </div>
+          </div>
+          <h1 class="posttitle">Two ways to load only the CSS you need</h1>
+          <h2 class="post-subtitle"></h2>
+          <p>
+<span class="post-date"><time class="post-date">
+March 10, 2022 </time></span>
+            <span class="dot"></span>
+            <span class="readingtime">5 min read</span>
+            <span class="wordcount">1478</span>
+            <span class="logrocket_editor" style="display:none;"></span>
+          </p>
+        </div>
+        <img width="730" height="487" src="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png" class="featured-image img-fluid wp-post-image jetpack-lazy-image" alt="Two Ways To Load Only The CSS You Need" decoding="async" data-attachment-id="96485" data-permalink="https://blog.logrocket.com/two-ways-load-only-css-you-need/two-ways-load-only-css-you-need-2/" data-orig-file="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png" data-orig-size="730,487" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Two ways to load only the CSS you need" data-image-description data-image-caption data-medium-file="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need-300x200.png" data-large-file="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png" data-lazy-srcset="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png 730w, https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need-300x200.png 300w" data-lazy-sizes="(max-width: 730px) 100vw, 730px" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2022/03/Two-ways-load-only-CSS-you-need.png?is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> <article class="article-post">
+        <p>CSS, which stands for cascading style sheets, is a styling language used for presenting content on a website.</p>
+        <p>A style sheet can be included in a web page through various ways; you can embed a <code>&lt;link&gt;</code> tag that links to an external CSS file, you can embed the styles inline or inside a <code>&lt;style&gt;</code> block within the <code>&lt;head&gt;</code> area, or you can use a modern CSS tool like PostCSS to use some extra handy features.</p>
+        <p>In some cases, however, you might want to use a particular style sheet only if a specified condition is <code>true</code>. For example, you might want to apply a mobile-friendly style sheet when viewing a site on a mobile device and apply a desktop version when viewing the site on a desktop screen.</p>
+        <p>In this tutorial, we&#8217;ll go over two effective ways, using media queries and PostCSS, to selectively load and apply style sheets as well as review some caveats surrounding each process:</p>
+        <ul>
+          <li><a href="#css-media-queries-vs-html-media-queries">CSS media queries vs. HTML media queries</a></li>
+          <li><a href="#using-media-queries-within-the-html-link-tag-to-load-style-sheets">Using media queries within the HTML <code>&lt;link&gt;</code> tag to load style sheets</a></li>
+          <li><a href="#evaluating-nested-media-queries">Evaluating nested media queries</a></li>
+          <li><a href="#postcss-imports">PostCSS imports</a></li>
+        </ul>
+        <h2 id="css-media-queries-vs-html-media-queries">CSS media queries vs. HTML media queries</h2>
+        <p>A media query is a CSS technique used to make a website look good on any screen. It uses the <code>@media</code> rule to include a block of CSS properties that can be applied only if a condition is <code>true</code>.</p>
+        <p>For example, using the <code>@media</code> rule in CSS, you can write a media query to style your text differently in screens wider than 500px and screens lower than 500px:</p>
+        <pre class="language-css hljs">/* text is blue on screens smaller than 500px */
+@media (max-width: 500px) {
+    p {
+       color: blue;
+    }
+}
+
+/* text is red on screens larger than 500px */
+@media (min-width: 500px) {
+    p {
+       color: red;
+    }
+}
+</pre>
+        <p>Media queries are commonly written in style sheets, but you can write media queries directly inside your HTML markup, too.</p>
+        <h3 id="using-media-queries-within-the-html-link-tag-to-load-style-sheets">Using media queries within the HTML <code>&lt;link&gt;</code> tag to load style sheets</h3>
+        <p>The <code>&lt;link&gt;</code> tag in HTML establishes a link between an HTML document and an external resource, such as an external style sheet.</p>
+        <p>Though this element can appear multiple times within a document, it only goes into the <code>&lt;head&gt;</code> section. <code>&lt;link&gt;</code> is an empty tag, so it can hold multiple attributes that describe to the browser how the linked item relates to the containing document.</p>
+        <p>When working with complex websites, you can create different CSS files, all tailored to different screen sizes or orientations. Then, using the <code>media</code> attribute on the <code>&lt;link&gt;</code> tag, you can set up media queries to load corresponding stylesheets.</p>
+        <p>Consider the following HTML, for example:</p>
+        <pre class="language-html hljs">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+  &lt;link rel="stylesheet" media='screen and (max-width: 699px)' href="phone.css"/&gt;
+  &lt;link rel="stylesheet" media='screen and (min-width: 700px)' href="tablet.css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;Text color: Blue in phones, red in tablets, green in even smaller screens&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+        <p>Here&#8217;s the style for <code>phone.css</code>:</p>
+        <pre class="language-css hljs">p {
+  color: blue;
+}
+</pre>
+        <p>And here&#8217;s the style for <code>tablet.css</code>:</p>
+        <pre class="language-css hljs">p {
+  color: red;
+}
+</pre>
+        <p>On viewports with a width less than 700px, the stylesheet <code>phone.css</code> will apply to the document, making the text turn blue. When the screen width exceeds 699px, <code>tablet.css</code> will apply to the document, and the text will become red.</p>
+        <p>This approach gives you more flexibility when it comes to organizing your stylesheets. So, instead of putting all your styles and media queries inside a single CSS file, you can break them down into different files and load them directly from HTML using media queries.</p><div class='code-block code-block-57' style='margin: 8px 0; clear: both;'>
+        <hr>
+        <div style="display:block; margin-bottom: 20px;">
+          <a href="https://lp.logrocket.com/blg/learn-more" class="embed-link">
+            <div class="tweet-embed-container">
+              <div class="single-tweet">
+                <img src="https://blog.logrocket.com/wp-content/uploads/2022/08/tweet-embed.png" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2022/08/tweet-embed.png?is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class=" jetpack-lazy-image"><noscript><img data-lazy-fallback="1" src="https://blog.logrocket.com/wp-content/uploads/2022/08/tweet-embed.png" /></noscript>
+              </div>
+              <div class="embed-tweet-right">
+                <h2>Over 200k developers use LogRocket to create better digital experiences</h2>
+                <div class="embed-btn"><img src="https://blog.logrocket.com/wp-content/uploads/2022/08/rocket-button-icon.png" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2022/08/rocket-button-icon.png?is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class=" jetpack-lazy-image"><noscript><img data-lazy-fallback="1" src="https://blog.logrocket.com/wp-content/uploads/2022/08/rocket-button-icon.png" /></noscript>Learn more →</div>
+              </div>
+            </div></a></div>
+        <hr>
+        <style>
+          @media all and (max-width: 800px){
+            .tweet-embed-container {flex-direction: column !important;}
+            .single-tweet, .embed-tweet-right {width: 100% !important;}
+          }
+          .embed-link {text-decoration: none;}
+          .embed-link:hover {text-decoration: none;}
+          .tweet-embed-container {border-radius: 20px;
+            background: radial-gradient(79.69% 102.24% at 100% 100.11%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)), radial-gradient(89.7% 115.09% at 3.43% 2.75%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)), #764ABC;
+            background-blend-mode: overlay, overlay, normal;
+            box-shadow: 0 4px 0 #d5d5d5;
+            width: auto;
+            padding: 10px 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 0 auto;
+            gap: 3%;
+          }
+          .single-tweet {width: 50%;}
+          .single-tweet img {max-width: 100%;height: auto; border-radius:7px;}
+          .embed-tweet-right {width: 46%;}
+          .embed-tweet-right h2 {padding-top: 20px;font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 28px;
+            color: #FFFFFF;}
+          .embed-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            width: 170px;
+            gap: 5px;
+            align-items: center;
+            padding: 0px 10px;
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 16px;
+            color: #764ABC;
+            height: 48px;
+            /* White */
+            background: #FFFFFF;
+            mix-blend-mode: normal;
+            box-shadow: 0px 24px 30px rgba(0, 0, 0, 0.11);
+            border-radius: 80px;
+            border: none;
+          }</style></div>
+        <p>With HTML media queries, both CSS files are downloaded regardless of whether or not the media query is satisfied. The browser must download all of it so it can reevaluate when orientation changes. However, parsing unwanted CSS by the browser is delayed.</p>
+        <p>But, with CSS media queries, all style blocks are completely parsed and processed, whether or not the query is satisfied.</p>
+        <h3 id="evaluating-nested-media-queries">Evaluating nested media queries</h3>
+        <p>When loading a CSS file via HTML <code>&lt;link&gt;</code>, the style sheet may contain a media query of its own.</p>
+        <p>To demonstrate this, we&#8217;ll nest another media query inside of <code>phone.css</code>:</p>
+        <pre class="language-css hljs">p {
+  color: blue;
+}
+
+/* nested media query */
+@media (max-width: 200px) {
+    p {
+       color: green;
+    }
+}
+</pre>
+        <p>Here, we&#8217;re saying that the text should turn green when the screen width is less than 200px. When our browser resizes to take up a width of 200px or less, the text turns green.</p>
+        <p>However, widen the screen to a width higher than 200px, and the text turns back to blue. This demonstrates that the browser will also process any nested media query.</p>
+        <h2 id="postcss-imports">PostCSS imports</h2>
+        <p><a href="https://blog.logrocket.com/getting-started-with-postcss-in-2019-484262a4d725/" target="_blank" rel="noopener">PostCSS provides an extensive plugin ecosystem</a> to help CSS authors improve their CSS writing experience. This includes a plugin that can combine style sheets from different CSS files into a single CSS file.</p>
+        <p>One way to set up PostCSS in your web project is with the PostCSS CLI, and that&#8217;s what we&#8217;ll use here. Note, however, that Node and npm are both required to run PostCSS, so ensure you have them installed first.</p>
+        <p>To begin, let’s create an empty <code>postcss-demo</code> folder, then <code>cd</code> into the folder and initialize a fresh node project by running <code>npm init -y</code> from the command line. This generates a package.json file in our <code>postcss-demo</code> folder with default values.</p>
+        <p>Now, to install PostCSS, the PostCSS CLI, and the PostCSS imports plugin all in one go and save them as dependencies, use this command:</p>
+        <pre class="language-bash hljs">npm i -D postcss postcss-cli postcss-import
+</pre>
+        <p>PostCSS uses the PostCSS import plugin to bundle together different style sheets from different sources into a single CSS file.</p>
+        <p>For example, inside the <code>postcss-demo/src</code> folder, we can decide to group our style sheets into different folders based on what they do.</p>
+        <p>Style sheets that reset the document go into the base folder, style sheets that design common UI components (for example, <code>button.css</code> for buttons, <code>card.css</code> for cards, and <code>form.css</code> for forms) go into the components folder, and so on.</p>
+        <p>Basically, you can organize your stylesheets however you want to.</p>
+        <p>Then, with a couple of configuration settings and CLI commands, we can bring in all these CSS files we need into one single CSS file for production.</p>
+        <p>For reference, here&#8217;s the structure of our project at this point:</p>
+        <pre class="language-bash hljs">postcss-demo
+├── src
+│   ├── base
+│         ├── base.css
+│         ├── reset.css
+│   ├── components
+│         ├── button.css
+│         ├── card.css
+│         ├── form.css
+│   ├── utilities
+│         ├── container.css
+│         ├── margin.css
+│         ├── padding.css
+│   └── style.css
+├── node_modules
+├── package.json
+└── package-lock.json
+</pre>
+        <p>Now that we installed all our dependencies, we must set up a PostCSS config file.<br />
+          To do this, create a <code>postcss.config.js</code> file directly in <code>postcss-demo</code> (root folder).</p>
+        <p>Inside this file, we&#8217;ll register the plugin so we can use it:</p>
+        <pre class="language-javascript hljs">module.exports = {
+    plugins: [
+        require('postcss-import'),
+    ]
+}
+</pre>
+        <p>Next, inside of the <code>postcss-demo/src/style.css</code> file , we are going to instruct PostCSS on what stylesheets to import using the <code>@import</code> directive:</p>
+        <pre class="language-css hljs">@import 'base/base.css';
+@import 'base/reset.css';
+
+@import 'components/button.css';
+@import 'components/card.css';
+@import 'components/form.css';
+
+@import 'utilities/container.css';
+@import 'utilities/padding.css';
+@import 'utilities/margin.css';
+</pre>
+        <p>Here, we specified the relative paths to all the style sheets that we want to import.</p>
+        <p>With the directives and the paths all in place, let’s import these different style sheets into <code>styles.css</code>. To do that, open the <code>package.json</code> file and include the following script under <code>scripts</code>:</p>
+        <pre class="language-json hljs">{
+  //
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "postcss:watch": "postcss src/style.css --dir public"
+  },
+  //
+}
+</pre>
+        <p>Here, we specify what to do when the script <code>postcss:watch</code> runs. In addition to running <code>postcss</code>, we tell it to go into our <code>src</code> folder, find the <code>styles.css</code> file, and then we specified what directory to output the combined style sheets into.</p>
+        <p>Finally, run the following script:</p>
+        <pre class="language-bash hljs">npm run postcss:watch
+</pre>
+        <p>Upon successful execution, the script generates a public folder with the file <code>style.css</code>. This file contains all the style sheets previously imported into <code>src/style.css</code>.</p>
+        <p>Therefore, any stylesheet imported into <code>src/styles.css</code> outputs to <code>public/style.css</code>.</p>
+        <h2 id="conclusion">Conclusion</h2>
+        <p>In this tutorial, we discussed in detail two ways to load CSS into a webpage by covering media queries and Post CSS imports.</p>
+        <p>Media queries can be written both inside CSS and HTML. Inside HTML, the <code>&lt;link&gt;</code> tag must be provided with a <code>media</code> attribute containing the media query and the URL link to the external CSS file, which applies when the query condition is <code>true</code>.</p>
+        <p>PostCSS, however, uses a special import plugin to bundle together disparate CSS files into one single CSS file.</p>
+        <p>If you have any questions related to this topic, please let me know in the comments.</p>
+        <p>Have a great week!</p><div class='code-block code-block-25' style='margin: 8px 0; clear: both;'>
+        <div class="blog-plug inline-plug css-plug"><h2>Is your frontend hogging your users' CPU?</h2>As web frontends get increasingly complex, resource-greedy features demand more and more from the browser. If you’re interested in monitoring and tracking client-side CPU usage, memory usage, and more for all of your users in production, <a target="_blank" href="https://lp.logrocket.com/blg/css-signup">try LogRocket</a>.<a class="signup" href="https://lp.logrocket.com/blg/css-signup" target="_blank" rel="noopener noreferrer"><img class="alignnone size-full wp-image-46 jetpack-lazy-image" src="https://blog.logrocket.com/wp-content/uploads/2019/12/cpu-memory-usage.png" alt="LogRocket Dashboard Free Trial Banner" width="1200" height="677" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2019/12/cpu-memory-usage.png?is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" class="alignnone size-full wp-image-46" src="https://blog.logrocket.com/wp-content/uploads/2019/12/cpu-memory-usage.png" alt="LogRocket Dashboard Free Trial Banner" width="1200" height="677"  /></noscript></a><a href="https://lp.logrocket.com/blg/css-signup" target="_blank" rel="noopener noreferrer">https://logrocket.com/signup/</a><p style="margin-top: 15px;"><a href="https://lp.logrocket.com/blg/css-signup" target="_blank" rel="noopener noreferrer">LogRocket</a> is like a DVR for web and mobile apps, recording everything that happens in your web app, mobile app, or website. Instead of guessing why problems happen, you can aggregate and report on key frontend performance metrics, replay user sessions along with application state, log network requests, and automatically surface all errors.</p><p>Modernize how you debug web and mobile apps — <a class="signup" href="https://lp.logrocket.com/blg/css-signup" target="_blank" rel="noopener noreferrer">Start monitoring for free</a>.</p></div>
+      </div>
+        <div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-96481" class="share-twitter sd-button share-icon" href="https://blog.logrocket.com/two-ways-load-only-css-you-need/?share=twitter" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer" data-shared="" class="share-reddit sd-button share-icon" href="https://blog.logrocket.com/two-ways-load-only-css-you-need/?share=reddit" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-96481" class="share-linkedin sd-button share-icon" href="https://blog.logrocket.com/two-ways-load-only-css-you-need/?share=linkedin" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-96481" class="share-facebook sd-button share-icon" href="https://blog.logrocket.com/two-ways-load-only-css-you-need/?share=facebook" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+      </article>
+
+        <div class="row post-top-meta hidden-lg-up">
+          <div class="col-md-2 col-xs-4">
+            <img alt src="https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1" class="avatar avatar-72 photo jetpack-lazy-image" height="72" width="72" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" alt='' src='https://blog.logrocket.com/wp-content/uploads/2021/09/Kingsley-Ubah-150x150.png?crop=1' class='avatar avatar-72 photo' height='72' width='72'  /></noscript> </div>
+          <div class="col-md-10 col-xs-8">
+            <a class="text-capitalize link-dark" href="https://blog.logrocket.com/author/kingsleyubah/">
+              Kingsley Ubah <span class="btn follow">Follow</span></a>
+            <span class="author-description d-block">21. Web Developer. Technical Writer. African in Tech.</span>
+          </div>
+        </div>
+        <div class="after-post-tags">
+          <ul class="post-categories">
+            <li><a href="https://blog.logrocket.com/category/uncategorized/" rel="category tag">Uncategorized</a></li></ul> <ul class="post-categories aretags">
+          <li><a href="https://blog.logrocket.com/tag/css/">#css</a></li> </ul>
+        </div>
+        <div class="row mb-5 prevnextlinks justify-content-center align-items-center">
+          <div class="col-md-6 col-xs-12 rightborder pl-0"><div class="thepostlink">&laquo; <a href="https://blog.logrocket.com/supabase-authentication-flutter/" rel="prev">Using Supabase for authentication in Flutter</a></div></div>
+          <div class="col-md-6 col-xs-12 text-right pr-0"><div class="thepostlink"><a href="https://blog.logrocket.com/multer-nodejs-express-upload-file/" rel="next">Multer: Easily upload files with Node.js and Express</a> &raquo;</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hideshare"></div>
+  <div class="graybg">
+    <div class="container">
+      <div class="row justify-content-center listrecent listrelated">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card post height262">
+            <a class="thumbimage" href="https://blog.logrocket.com/styling-webpages-with-sakura-css/" style="background-image:url(https://blog.logrocket.com/wp-content/uploads/2023/03/Styling-webpage-with-Sakura-CSS.png);"></a><div class="card-block">
+            <h2 class="card-title">
+              <a href="https://blog.logrocket.com/styling-webpages-with-sakura-css/">Styling webpages with Sakura CSS</a>
+            </h2>
+            <div class="metafooter">
+              <div class="wrapfooter">
+<span class="meta-footer-thumb">
+<a href="https://blog.logrocket.com/author/onuorahbonaventure/">
+<img alt src="https://blog.logrocket.com/wp-content/uploads/2022/10/onuorah-bonaventure-150x150.jpg?crop=1" class="avatar avatar-40 photo jetpack-lazy-image" height="40" width="40" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2022/10/onuorah-bonaventure-150x150.jpg?crop=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" alt='' src='https://blog.logrocket.com/wp-content/uploads/2022/10/onuorah-bonaventure-150x150.jpg?crop=1' class='avatar avatar-40 photo' height='40' width='40'  /></noscript> </a>
+</span>
+                <span class="author-meta">
+<span class="post-name">
+<a href="https://blog.logrocket.com/author/onuorahbonaventure/">Onuorah Bonaventure</a></span><br>
+<span class="post-date">Mar 31, 2023</span>
+<span class="dot"></span>
+<span class="readingtime">8 min read</span>
+</span>
+                <span class="post-read-more">
+<a href="https://blog.logrocket.com/styling-webpages-with-sakura-css/" title="">
+<svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25">
+<path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</span> </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card post height262">
+            <a class="thumbimage" href="https://blog.logrocket.com/libsql-next-gen-fork-sqlite/" style="background-image:url(https://blog.logrocket.com/wp-content/uploads/2023/03/getting-started-libsql-next-gen-fork-sqlite-nocdn.png);"></a><div class="card-block">
+            <h2 class="card-title">
+              <a href="https://blog.logrocket.com/libsql-next-gen-fork-sqlite/">Get started with libSQL, a next-gen fork of SQLite</a>
+            </h2>
+            <div class="metafooter">
+              <div class="wrapfooter">
+<span class="meta-footer-thumb">
+<a href="https://blog.logrocket.com/author/glaubercosta/">
+<img alt src="https://blog.logrocket.com/wp-content/uploads/2023/03/glauber-costa-150x150.png?crop=1" class="avatar avatar-40 photo jetpack-lazy-image" height="40" width="40" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2023/03/glauber-costa-150x150.png?crop=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" alt='' src='https://blog.logrocket.com/wp-content/uploads/2023/03/glauber-costa-150x150.png?crop=1' class='avatar avatar-40 photo' height='40' width='40'  /></noscript> </a>
+</span>
+                <span class="author-meta">
+<span class="post-name">
+<a href="https://blog.logrocket.com/author/glaubercosta/">Glauber Costa</a></span><br>
+<span class="post-date">Mar 31, 2023</span>
+<span class="dot"></span>
+<span class="readingtime">10 min read</span>
+</span>
+                <span class="post-read-more">
+<a href="https://blog.logrocket.com/libsql-next-gen-fork-sqlite/" title="">
+<svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25">
+<path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</span> </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card post height262">
+            <a class="thumbimage" href="https://blog.logrocket.com/build-real-time-vue-app-websockets/" style="background-image:url(https://blog.logrocket.com/wp-content/uploads/2023/02/vue-websockets-real-time-app.png);"></a><div class="card-block">
+            <h2 class="card-title">
+              <a href="https://blog.logrocket.com/build-real-time-vue-app-websockets/">How to build a real-time Vue app with WebSockets</a>
+            </h2>
+            <div class="metafooter">
+              <div class="wrapfooter">
+<span class="meta-footer-thumb">
+<a href="https://blog.logrocket.com/author/abiolafarounbi/">
+<img alt src="https://blog.logrocket.com/wp-content/uploads/2022/01/abiola-farounbi-150x150.jpeg?crop=1" class="avatar avatar-40 photo jetpack-lazy-image" height="40" width="40" data-lazy-src="https://blog.logrocket.com/wp-content/uploads/2022/01/abiola-farounbi-150x150.jpeg?crop=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-lazy-fallback="1" alt='' src='https://blog.logrocket.com/wp-content/uploads/2022/01/abiola-farounbi-150x150.jpeg?crop=1' class='avatar avatar-40 photo' height='40' width='40'  /></noscript> </a>
+</span>
+                <span class="author-meta">
+<span class="post-name">
+<a href="https://blog.logrocket.com/author/abiolafarounbi/">Abiola Farounbi</a></span><br>
+<span class="post-date">Mar 30, 2023</span>
+<span class="dot"></span>
+ <span class="readingtime">7 min read</span>
+</span>
+                <span class="post-read-more">
+<a href="https://blog.logrocket.com/build-real-time-vue-app-websockets/" title="">
+<svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25">
+<path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</span> </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div id="comments" class="comments-area">
+            <div id="respond" class="comment-respond">
+              <h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/two-ways-load-only-css-you-need/#respond" style="display:none;">Cancel reply</a></small>
+              </h3>
+              <form id="commentform" class="comment-form">
+                <iframe title="Comment Form" src="https://jetpack.wordpress.com/jetpack-comment/?blogid=161333275&#038;postid=96481&#038;comment_registration=0&#038;require_name_email=1&#038;stc_enabled=1&#038;stb_enabled=1&#038;show_avatars=1&#038;avatar_default=mystery&#038;greeting=Leave+a+Reply&#038;jetpack_comments_nonce=8c8ab9fbc9&#038;greeting_reply=Leave+a+Reply+to+%25s&#038;color_scheme=light&#038;lang=en_US&#038;jetpack_version=12.0-a.7&#038;show_cookie_consent=10&#038;has_cookie_consent=0&#038;token_key=%3Bnormal%3B&#038;sig=1f3de531de7274fc3ad4301a3cd2c870baba9bd1#parent=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F" name="jetpack_remote_comment" style="width:100%; height: 430px; border:0;" class="jetpack_remote_comment" id="jetpack_remote_comment" sandbox="allow-same-origin allow-top-navigation allow-scripts allow-forms allow-popups">
+                </iframe>
+                <!--[if !IE]><!-->
+                <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    var commentForms = document.getElementsByClassName('jetpack_remote_comment');
+                    for (var i = 0; i < commentForms.length; i++) {
+                      commentForms[i].allowTransparency = false;
+                      commentForms[i].scrolling = 'no';
+                    }
+                  });
+                </script>
+                <!--<![endif]-->
+              </form>
+            </div>
+            <input type="hidden" name="comment_parent" id="comment_parent" value="" />
+          </div>
+        </div>
+      </div> </div>
+  </div>
+  <div class="alertbar">
+    <div class="container text-center">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <footer class="footer">
+    <div class="footerRight"><form role="search" method="get" action="https://blog.logrocket.com/" class="wp-block-search__button-outside wp-block-search__text-button alignright wp-block-search"><label for="wp-block-search__input-1" class="wp-block-search__label screen-reader-text">Search</label><div class="wp-block-search__inside-wrapper " style="width: 100%"><input type="search" id="wp-block-search__input-1" class="wp-block-search__input" name="s" value="" placeholder="" required /><button type="submit" class="wp-block-search__button has-text-color wp-element-button" style="color: #764abc">Search</button></div></form></div> <div class="clearfix"></div>
+    <a href="" class="back-to-top hidden-md-down">
+      <i class="fa fa-angle-up"></i>
+    </a>
+  </footer>
+</div>
+
+<style>
+  .sd-social-icon .sd-content ul li a.sd-button>span {
+    margin-left: 0;
+  }
+</style><script defer id="bilmur" data-provider="wordpress.com" data-service="atomic" src="https://s0.wp.com/wp-content/js/bilmur.min.js?m=202313"></script>
+<script>window.onload = function() {
+  if (typeof hljs !== 'undefined')
+  {
+    document.querySelectorAll('pre').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  }
+  if (jQuery(".type-post").length) {
+    var localDate = new Date(document.getElementsByTagName('time')[0].innerText);
+    var pubDate = new Date(Date.UTC(localDate.getFullYear(), localDate.getMonth(), localDate.getDate()));
+    analytics.track('post-info', {
+      url: window.location.href.split('?')[0],
+      wordCount: jQuery('.wordcount').text(),
+      publishDate: pubDate,
+      blogtag: jQuery('.aretags li a').text(),
+      postAuthor: jQuery("meta[name='twitter:data1']").attr("content"),
+      id: jQuery(".mainheading").closest(".col-md-8").attr("id").replace('post-',''),
+      lr_editor: jQuery(".logrocket_editor").text()
+    });
+  }
+  jQuery(".aretags li a:contains('archive')").parent('li').hide();
+  jQuery(".aretags li a:contains('86919')").parent('li').hide();
+  jQuery(".aretags li a:contains('72293')").parent('li').hide();
+  jQuery(".aretags li a:contains('custom-plug')").parent('li').hide();
+};</script> <div style="display:none">
+  <div class="grofile-hash-map-529455f1db474e8d1504dfedb1285f0b">
+  </div>
+  <div class="grofile-hash-map-6392635623184279cde74443f1e89b7c">
+  </div>
+  <div class="grofile-hash-map-6e69c95c7b9d2b6b8876e33764eb1071">
+  </div>
+  <div class="grofile-hash-map-6e95522d372c844c208f34eba53fbdea">
+  </div>
+</div>
+<script type="text/javascript">
+  window.WPCOM_sharing_counts = {"https:\/\/blog.logrocket.com\/two-ways-load-only-css-you-need\/":96481};
+</script>
+<link rel='stylesheet' id='dashicons-css' href='https://blog.logrocket.com/wp-includes/css/dashicons.min.css?ver=6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='nf-display-css' href='https://blog.logrocket.com/wp-content/plugins/ninja-forms/assets/css/display-opinions-light.css?ver=6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='nf-font-awesome-css' href='https://blog.logrocket.com/wp-content/plugins/ninja-forms/assets/css/font-awesome.min.css?ver=6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='nf-mp-display-css' href='https://blog.logrocket.com/wp-content/plugins/ninja-forms-multi-part/assets/css/display-opinions-light.css?ver=6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='nf-layout-front-end-css' href='https://blog.logrocket.com/wp-content/plugins/ninja-forms-style/layouts/assets/css/display-structure.css?ver=3.0.29' type='text/css' media='all' />
+<script type='text/javascript' id='code-prettify-js-before'>
+  var codePrettifyLoaderBaseUrl = "https:\/\/blog.logrocket.com\/wp-content\/plugins\/code-prettify\/prettify";
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/code-prettify/prettify/run_prettify.js?ver=1.4.0' id='code-prettify-js'></script>
+<script type='text/javascript' src='https://secure.gravatar.com/js/gprofiles.js?ver=202313' id='grofiles-cards-js'></script>
+<script type='text/javascript' id='wpgroho-js-extra'>
+  /* <![CDATA[ */
+  var WPGroHo = {"my_hash":""};
+  /* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/jetpack/modules/wpgroho.js?ver=12.0-a.7' id='wpgroho-js'></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js' id='tether-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/themes/mediumish/assets/js/bootstrap.min.js' id='bootstrap4-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/themes/mediumish/assets/js/ie10-viewport-bug-workaround.js' id='mediumish-ieviewportbugworkaround-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/themes/mediumish/assets/js/masonry.pkgd.min.js' id='mediumish-masonrypkgd-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/themes/mediumish/assets/js/mediumish.js' id='mediumish-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-includes/js/comment-reply.min.js?ver=6.2' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-lazy-images/dist/intersection-observer.js?minify=false&#038;ver=83ec8aa758f883d6da14' id='jetpack-lazy-images-polyfill-intersectionobserver-js'></script>
+<script type='text/javascript' id='jetpack-lazy-images-js-extra'>
+  /* <![CDATA[ */
+  var jetpackLazyImagesL10n = {"loading_warning":"Images are still loading. Please cancel your print and try again."};
+  /* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-lazy-images/dist/lazy-images.js?minify=false&#038;ver=de7a5ed9424adbf44f32' id='jetpack-lazy-images-js'></script>
+<script defer type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/akismet/_inc/akismet-frontend.js?ver=1666634240' id='akismet-frontend-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-includes/js/underscore.min.js?ver=1.13.4' id='underscore-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-includes/js/backbone.min.js?ver=1.4.1' id='backbone-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/ninja-forms/assets/js/min/front-end-deps.js?ver=3.6.20' id='nf-front-end-deps-js'></script>
+<script type='text/javascript' id='nf-front-end-js-extra'>
+  /* <![CDATA[ */
+  var nfi18n = {"ninjaForms":"Ninja Forms","changeEmailErrorMsg":"Please enter a valid email address!","changeDateErrorMsg":"Please enter a valid date!","confirmFieldErrorMsg":"These fields must match!","fieldNumberNumMinError":"Number Min Error","fieldNumberNumMaxError":"Number Max Error","fieldNumberIncrementBy":"Please increment by ","fieldTextareaRTEInsertLink":"Insert Link","fieldTextareaRTEInsertMedia":"Insert Media","fieldTextareaRTESelectAFile":"Select a file","formErrorsCorrectErrors":"Please correct errors before submitting this form.","formHoneypot":"If you are a human seeing this field, please leave it empty.","validateRequiredField":"This is a required field.","honeypotHoneypotError":"Honeypot Error","fileUploadOldCodeFileUploadInProgress":"File Upload in Progress.","fileUploadOldCodeFileUpload":"FILE UPLOAD","currencySymbol":"$","fieldsMarkedRequired":"Fields marked with an <span class=\"ninja-forms-req-symbol\">*<\/span> are required","thousands_sep":",","decimal_point":".","siteLocale":"en_US","dateFormat":"m\/d\/Y","startOfWeek":"1","of":"of","previousMonth":"Previous Month","nextMonth":"Next Month","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthsShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"weekdaysShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"weekdaysMin":["Su","Mo","Tu","We","Th","Fr","Sa"],"recaptchaConsentMissing":"reCapctha validation couldn't load.","recaptchaMissingCookie":"reCaptcha v3 validation couldn't load the cookie needed to submit the form.","recaptchaConsentEvent":"Accept reCaptcha cookies before sending the form."};
+  var nfFrontEnd = {"adminAjax":"https:\/\/blog.logrocket.com\/wp-admin\/admin-ajax.php","ajaxNonce":"c56957a80b","requireBaseUrl":"https:\/\/blog.logrocket.com\/wp-content\/plugins\/ninja-forms\/assets\/js\/","use_merge_tags":{"user":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"post":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"system":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"fields":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"calculations":{"html":"html","hidden":"hidden","note":"note","unknown":"unknown"}},"opinionated_styles":"light","filter_esc_status":"false","nf_consent_status_response":[]};
+  var nfi18n = {"ninjaForms":"Ninja Forms","changeEmailErrorMsg":"Please enter a valid email address!","changeDateErrorMsg":"Please enter a valid date!","confirmFieldErrorMsg":"These fields must match!","fieldNumberNumMinError":"Number Min Error","fieldNumberNumMaxError":"Number Max Error","fieldNumberIncrementBy":"Please increment by ","fieldTextareaRTEInsertLink":"Insert Link","fieldTextareaRTEInsertMedia":"Insert Media","fieldTextareaRTESelectAFile":"Select a file","formErrorsCorrectErrors":"Please correct errors before submitting this form.","formHoneypot":"If you are a human seeing this field, please leave it empty.","validateRequiredField":"This is a required field.","honeypotHoneypotError":"Honeypot Error","fileUploadOldCodeFileUploadInProgress":"File Upload in Progress.","fileUploadOldCodeFileUpload":"FILE UPLOAD","currencySymbol":"$","fieldsMarkedRequired":"Fields marked with an <span class=\"ninja-forms-req-symbol\">*<\/span> are required","thousands_sep":",","decimal_point":".","siteLocale":"en_US","dateFormat":"m\/d\/Y","startOfWeek":"1","of":"of","previousMonth":"Previous Month","nextMonth":"Next Month","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthsShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"weekdaysShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"weekdaysMin":["Su","Mo","Tu","We","Th","Fr","Sa"],"recaptchaConsentMissing":"reCapctha validation couldn't load.","recaptchaMissingCookie":"reCaptcha v3 validation couldn't load the cookie needed to submit the form.","recaptchaConsentEvent":"Accept reCaptcha cookies before sending the form."};
+  var nfFrontEnd = {"adminAjax":"https:\/\/blog.logrocket.com\/wp-admin\/admin-ajax.php","ajaxNonce":"c56957a80b","requireBaseUrl":"https:\/\/blog.logrocket.com\/wp-content\/plugins\/ninja-forms\/assets\/js\/","use_merge_tags":{"user":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"post":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"system":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"fields":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"calculations":{"html":"html","hidden":"hidden","note":"note","unknown":"unknown"}},"opinionated_styles":"light","filter_esc_status":"false","nf_consent_status_response":[]};
+  var nfi18n = {"ninjaForms":"Ninja Forms","changeEmailErrorMsg":"Please enter a valid email address!","changeDateErrorMsg":"Please enter a valid date!","confirmFieldErrorMsg":"These fields must match!","fieldNumberNumMinError":"Number Min Error","fieldNumberNumMaxError":"Number Max Error","fieldNumberIncrementBy":"Please increment by ","fieldTextareaRTEInsertLink":"Insert Link","fieldTextareaRTEInsertMedia":"Insert Media","fieldTextareaRTESelectAFile":"Select a file","formErrorsCorrectErrors":"Please correct errors before submitting this form.","formHoneypot":"If you are a human seeing this field, please leave it empty.","validateRequiredField":"This is a required field.","honeypotHoneypotError":"Honeypot Error","fileUploadOldCodeFileUploadInProgress":"File Upload in Progress.","fileUploadOldCodeFileUpload":"FILE UPLOAD","currencySymbol":"$","fieldsMarkedRequired":"Fields marked with an <span class=\"ninja-forms-req-symbol\">*<\/span> are required","thousands_sep":",","decimal_point":".","siteLocale":"en_US","dateFormat":"m\/d\/Y","startOfWeek":"1","of":"of","previousMonth":"Previous Month","nextMonth":"Next Month","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthsShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"weekdaysShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"weekdaysMin":["Su","Mo","Tu","We","Th","Fr","Sa"],"recaptchaConsentMissing":"reCapctha validation couldn't load.","recaptchaMissingCookie":"reCaptcha v3 validation couldn't load the cookie needed to submit the form.","recaptchaConsentEvent":"Accept reCaptcha cookies before sending the form."};
+  var nfFrontEnd = {"adminAjax":"https:\/\/blog.logrocket.com\/wp-admin\/admin-ajax.php","ajaxNonce":"c56957a80b","requireBaseUrl":"https:\/\/blog.logrocket.com\/wp-content\/plugins\/ninja-forms\/assets\/js\/","use_merge_tags":{"user":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"post":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"system":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"fields":{"address":"address","textbox":"textbox","button":"button","checkbox":"checkbox","city":"city","confirm":"confirm","date":"date","email":"email","firstname":"firstname","html":"html","hidden":"hidden","lastname":"lastname","listcheckbox":"listcheckbox","listcountry":"listcountry","listimage":"listimage","listmultiselect":"listmultiselect","listradio":"listradio","listselect":"listselect","liststate":"liststate","note":"note","number":"number","password":"password","passwordconfirm":"passwordconfirm","product":"product","quantity":"quantity","recaptcha":"recaptcha","recaptcha_v3":"recaptcha_v3","repeater":"repeater","shipping":"shipping","spam":"spam","starrating":"starrating","submit":"submit","terms":"terms","textarea":"textarea","total":"total","unknown":"unknown","zip":"zip","hr":"hr"},"calculations":{"html":"html","hidden":"hidden","note":"note","unknown":"unknown"}},"opinionated_styles":"light","filter_esc_status":"false","nf_consent_status_response":[]};
+  /* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/ninja-forms/assets/js/min/front-end.js?ver=3.6.20' id='nf-front-end-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/ninja-forms-conditionals/assets/js/min/front-end.js?ver=6.2' id='nf-cl-front-end-js'></script>
+<script type='text/javascript' id='nf-mp-front-end-js-extra'>
+  /* <![CDATA[ */
+  var nfMPSettings = {"prevLabel":"Previous","nextLabel":"Next"};
+  var nfMPSettings = {"prevLabel":"Previous","nextLabel":"Next"};
+  var nfMPSettings = {"prevLabel":"Previous","nextLabel":"Next"};
+  /* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/ninja-forms-multi-part/assets/js/min/front-end.js?ver=3.0.26' id='nf-mp-front-end-js'></script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/ninja-forms-style/layouts/assets/js/min/front-end.js?ver=3.0.29' id='nf-layout-front-end-js'></script>
+<script type='text/javascript' id='sharing-js-js-extra'>
+  /* <![CDATA[ */
+  var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+  /* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.logrocket.com/wp-content/plugins/jetpack/_inc/build/sharedaddy/sharing.min.js?ver=12.0-a.7' id='sharing-js-js'></script>
+<script type='text/javascript' id='sharing-js-js-after'>
+  var windowOpen;
+  ( function () {
+    function matches( el, sel ) {
+      return !! (
+              el.matches && el.matches( sel ) ||
+              el.msMatchesSelector && el.msMatchesSelector( sel )
+      );
+    }
+
+    document.body.addEventListener( 'click', function ( event ) {
+      if ( ! event.target ) {
+        return;
+      }
+
+      var el;
+      if ( matches( event.target, 'a.share-twitter' ) ) {
+        el = event.target;
+      } else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+        el = event.target.parentNode;
+      }
+
+      if ( el ) {
+        event.preventDefault();
+
+        // If there's another sharing window open, close it.
+        if ( typeof windowOpen !== 'undefined' ) {
+          windowOpen.close();
+        }
+        windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+        return false;
+      }
+    } );
+  } )();
+  var windowOpen;
+  ( function () {
+    function matches( el, sel ) {
+      return !! (
+              el.matches && el.matches( sel ) ||
+              el.msMatchesSelector && el.msMatchesSelector( sel )
+      );
+    }
+
+    document.body.addEventListener( 'click', function ( event ) {
+      if ( ! event.target ) {
+        return;
+      }
+
+      var el;
+      if ( matches( event.target, 'a.share-linkedin' ) ) {
+        el = event.target;
+      } else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-linkedin' ) ) {
+        el = event.target.parentNode;
+      }
+
+      if ( el ) {
+        event.preventDefault();
+
+        // If there's another sharing window open, close it.
+        if ( typeof windowOpen !== 'undefined' ) {
+          windowOpen.close();
+        }
+        windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+        return false;
+      }
+    } );
+  } )();
+  var windowOpen;
+  ( function () {
+    function matches( el, sel ) {
+      return !! (
+              el.matches && el.matches( sel ) ||
+              el.msMatchesSelector && el.msMatchesSelector( sel )
+      );
+    }
+
+    document.body.addEventListener( 'click', function ( event ) {
+      if ( ! event.target ) {
+        return;
+      }
+
+      var el;
+      if ( matches( event.target, 'a.share-facebook' ) ) {
+        el = event.target;
+      } else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+        el = event.target.parentNode;
+      }
+
+      if ( el ) {
+        event.preventDefault();
+
+        // If there's another sharing window open, close it.
+        if ( typeof windowOpen !== 'undefined' ) {
+          windowOpen.close();
+        }
+        windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+        return false;
+      }
+    } );
+  } )();
+</script>
+<!--[if IE]>
+<script type="text/javascript">
+  if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+    // window.location.reload() doesn't respect the Hash in IE
+    window.location.hash = window.location.hash;
+  }
+</script>
+<![endif]-->
+<script type="text/javascript">
+  (function () {
+    var comm_par_el = document.getElementById( 'comment_parent' ),
+            comm_par = ( comm_par_el && comm_par_el.value ) ? comm_par_el.value : '',
+            frame = document.getElementById( 'jetpack_remote_comment' ),
+            tellFrameNewParent;
+
+    tellFrameNewParent = function () {
+      if ( comm_par ) {
+        frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=161333275&postid=96481&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&jetpack_comments_nonce=8c8ab9fbc9&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en_US&jetpack_version=12.0-a.7&show_cookie_consent=10&has_cookie_consent=0&token_key=%3Bnormal%3B&sig=1f3de531de7274fc3ad4301a3cd2c870baba9bd1#parent=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+      } else {
+        frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=161333275&postid=96481&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&jetpack_comments_nonce=8c8ab9fbc9&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en_US&jetpack_version=12.0-a.7&show_cookie_consent=10&has_cookie_consent=0&token_key=%3Bnormal%3B&sig=1f3de531de7274fc3ad4301a3cd2c870baba9bd1#parent=https%3A%2F%2Fblog.logrocket.com%2Ftwo-ways-load-only-css-you-need%2F";
+      }
+    };
+
+
+    if ( 'undefined' !== typeof addComment ) {
+      addComment._Jetpack_moveForm = addComment.moveForm;
+
+      addComment.moveForm = function ( commId, parentId, respondId, postId ) {
+        var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ),
+                cancelClick, cancel;
+
+        if ( false === returnValue ) {
+          cancel = document.getElementById( 'cancel-comment-reply-link' );
+          cancelClick = cancel.onclick;
+          cancel.onclick = function () {
+            var cancelReturn = cancelClick.call( this );
+            if ( false !== cancelReturn ) {
+              return cancelReturn;
+            }
+
+            if ( ! comm_par ) {
+              return cancelReturn;
+            }
+
+            comm_par = 0;
+
+            tellFrameNewParent();
+
+            return cancelReturn;
+          };
+        }
+
+        if ( comm_par == parentId ) {
+          return returnValue;
+        }
+
+        comm_par = parentId;
+
+        tellFrameNewParent();
+
+        return returnValue;
+      };
+    }
+
+
+    // Do the post message bit after the dom has loaded.
+    document.addEventListener( 'DOMContentLoaded', function () {
+      var iframe_url = "https:\/\/jetpack.wordpress.com";
+      if ( window.postMessage ) {
+        if ( document.addEventListener ) {
+          window.addEventListener( 'message', function ( event ) {
+            var origin = event.origin.replace( /^http:\/\//i, 'https://' );
+            if ( iframe_url.replace( /^http:\/\//i, 'https://' ) !== origin ) {
+              return;
+            }
+            frame.style.height = event.data + 'px';
+          });
+        } else if ( document.attachEvent ) {
+          window.attachEvent( 'message', function ( event ) {
+            var origin = event.origin.replace( /^http:\/\//i, 'https://' );
+            if ( iframe_url.replace( /^http:\/\//i, 'https://' ) !== origin ) {
+              return;
+            }
+            frame.style.height = event.data + 'px';
+          });
+        }
+      }
+    })
+
+  })();
+</script>
+<script src='https://stats.wp.com/e-202313.js' defer></script>
+<script>
+  _stq = window._stq || [];
+  _stq.push([ 'view', {v:'ext',blog:'161333275',post:'96481',tz:'-4',srv:'blog.logrocket.com',hp:'atomic',ac:'2',amp:'0',j:'1:12.0-a.7'} ]);
+  _stq.push([ 'clickTrackerInit', '161333275', '96481' ]);
+</script><script id="tmpl-nf-layout" type="text/template">
+  <span id="nf-form-title-{{{ data.id }}}" class="nf-form-title">
+		{{{ ( 1 == data.settings.show_title ) ? '<h' + data.settings.form_title_heading_level + '>' + data.settings.title + '</h' + data.settings.form_title_heading_level + '>' : '' }}}
+	</span>
+  <div class="nf-form-wrap ninja-forms-form-wrap">
+    <div class="nf-response-msg"></div>
+    <div class="nf-debug-msg"></div>
+    <div class="nf-before-form"></div>
+    <div class="nf-form-layout"></div>
+    <div class="nf-after-form"></div>
+  </div>
+</script>
+<script id="tmpl-nf-empty" type="text/template">
+
+</script>
+<script id="tmpl-nf-before-form" type="text/template">
+  {{{ data.beforeForm }}}
+</script><script id="tmpl-nf-after-form" type="text/template">
+  {{{ data.afterForm }}}
+</script><script id="tmpl-nf-before-fields" type="text/template">
+  <div class="nf-form-fields-required">{{{ data.renderFieldsMarkedRequired() }}}</div>
+  {{{ data.beforeFields }}}
+</script><script id="tmpl-nf-after-fields" type="text/template">
+  {{{ data.afterFields }}}
+  <div id="nf-form-errors-{{{ data.id }}}" class="nf-form-errors" role="alert"></div>
+  <div class="nf-form-hp"></div>
+</script>
+<script id="tmpl-nf-before-field" type="text/template">
+  {{{ data.beforeField }}}
+</script><script id="tmpl-nf-after-field" type="text/template">
+  {{{ data.afterField }}}
+</script><script id="tmpl-nf-form-layout" type="text/template">
+  <form>
+    <div>
+      <div class="nf-before-form-content"></div>
+      <div class="nf-form-content {{{ data.element_class }}}"></div>
+      <div class="nf-after-form-content"></div>
+    </div>
+  </form>
+</script><script id="tmpl-nf-form-hp" type="text/template">
+  <label id="nf-label-field-hp-{{{ data.id }}}" for="nf-field-hp-{{{ data.id }}}" aria-hidden="true">
+    {{{ nfi18n.formHoneypot }}}
+    <input id="nf-field-hp-{{{ data.id }}}" name="nf-field-hp" class="nf-element nf-field-hp" type="text" value="" aria-labelledby="nf-label-field-hp-{{{ data.id }}}" />
+  </label>
+</script>
+<script id="tmpl-nf-field-layout" type="text/template">
+  <div id="nf-field-{{{ data.id }}}-container" class="nf-field-container {{{ data.type }}}-container {{{ data.renderContainerClass() }}}">
+    <div class="nf-before-field"></div>
+    <div class="nf-field"></div>
+    <div class="nf-after-field"></div>
+  </div>
+</script>
+<script id="tmpl-nf-field-before" type="text/template">
+  {{{ data.beforeField }}}
+</script><script id="tmpl-nf-field-after" type="text/template">
+  <#
+  /*
+  * Render our input limit section if that setting exists.
+  */
+  #>
+  <div class="nf-input-limit"></div>
+  <#
+  /*
+  * Render our error section if we have an error.
+  */
+  #>
+  <div id="nf-error-{{{ data.id }}}" class="nf-error-wrap nf-error" role="alert"></div>
+  <#
+  /*
+  * Render any custom HTML after our field.
+  */
+  #>
+  {{{ data.afterField }}}
+</script>
+<script id="tmpl-nf-field-wrap" type="text/template">
+  <div id="nf-field-{{{ data.id }}}-wrap" class="{{{ data.renderWrapClass() }}}" data-field-id="{{{ data.id }}}">
+    <#
+    /*
+    * This is our main field template. It's called for every field type.
+    * Note that must have ONE top-level, wrapping element. i.e. a div/span/etc that wraps all of the template.
+    */
+    #>
+    <#
+    /*
+    * Render our label.
+    */
+    #>
+    {{{ data.renderLabel() }}}
+    <#
+    /*
+    * Render our field element. Uses the template for the field being rendered.
+    */
+    #>
+    <div class="nf-field-element">{{{ data.renderElement() }}}</div>
+    <#
+    /*
+    * Render our Description Text.
+    */
+    #>
+    {{{ data.renderDescText() }}}
+  </div>
+</script>
+<script id="tmpl-nf-field-wrap-no-label" type="text/template">
+  <div id="nf-field-{{{ data.id }}}-wrap" class="{{{ data.renderWrapClass() }}}" data-field-id="{{{ data.id }}}">
+    <div class="nf-field-label"></div>
+    <div class="nf-field-element">{{{ data.renderElement() }}}</div>
+    <div class="nf-error-wrap"></div>
+  </div>
+</script>
+<script id="tmpl-nf-field-wrap-no-container" type="text/template">
+
+  {{{ data.renderElement() }}}
+
+  <div class="nf-error-wrap"></div>
+</script>
+<script id="tmpl-nf-field-label" type="text/template">
+  <div class="nf-field-label">
+    <# if ( data.type === "listcheckbox" || data.type === "listradio" ) { #>
+    <span id="nf-label-field-{{{ data.id }}}"
+          class="nf-label-span {{{ data.renderLabelClasses() }}}">
+					{{{ ( data.maybeFilterHTML() === 'true' ) ? _.escape( data.label ) : data.label }}} {{{ ( 'undefined' != typeof data.required && 1 == data.required ) ? '<span class="ninja-forms-req-symbol">*</span>' : '' }}} 
+					{{{ data.maybeRenderHelp() }}}
+			</span>
+    <# } else { #>
+    <label for="nf-field-{{{ data.id }}}"
+           id="nf-label-field-{{{ data.id }}}"
+           class="{{{ data.renderLabelClasses() }}}">
+      {{{ ( data.maybeFilterHTML() === 'true' ) ? _.escape( data.label ) : data.label }}} {{{ ( 'undefined' != typeof data.required && 1 == data.required ) ? '<span class="ninja-forms-req-symbol">*</span>' : '' }}}
+      {{{ data.maybeRenderHelp() }}}
+    </label>
+    <# } #>
+  </div>
+</script>
+<script id="tmpl-nf-field-error" type="text/template">
+  <div class="nf-error-msg nf-error-{{{ data.id }}}">{{{ data.msg }}}</div>
+</script><script id="tmpl-nf-form-error" type="text/template">
+  <div class="nf-error-msg nf-error-{{{ data.id }}}">{{{ data.msg }}}</div>
+</script><script id="tmpl-nf-field-input-limit" type="text/template">
+  {{{ data.currentCount() }}} {{{ nfi18n.of }}} {{{ data.input_limit }}} {{{ data.input_limit_msg }}}
+</script><script id="tmpl-nf-field-null" type="text/template">
+</script><script id="tmpl-nf-field-listcheckbox" type="text/template">
+  <ul aria-describedby="nf-error-{{{ data.id }}}">
+    {{{ data.renderOptions() }}}
+  </ul>
+</script>
+<script id='tmpl-nf-field-listcheckbox-option' type='text/template'>
+  <# if ( ! data.visible ) { return '' } #>
+  <li>
+    <input type="checkbox" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element {{{ ( data.isSelected ) ? ' nf-checked' : '' }}}" value="{{{ data.value }}}" {{{ ( data.isSelected ) ? 'checked="checked"' : '' }}}
+    aria-labelledby="nf-label-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+    <# if( data.required ) { #>
+    required aria-required="true"
+    <# } #>
+    >
+    <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+           id="nf-label-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+           class="{{{ ( data.isSelected ) ? 'nf-checked-label' : '' }}}">{{{ data.label }}}</label>
+  </li>
+</script>
+</body>
+</html>
+
